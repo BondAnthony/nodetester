@@ -18,7 +18,7 @@ Fire up the application by running a number of node/npm commands.
 ---
 1. Build a container by running the docker build command, substitute **REPONAME** and **CONTAINERNAME** with a string that is unique to you and your build. My command look like this ```docker build -t spacer:test-nodejs-1.0```
 2. Run container ```docker run --name="CONTAINER_SHORT_NAME" -p 80:3000 -d REPONAME:CONTAINERNAME```. Change the shortname to something user friendly so you don't have to remember the container id.
-
+3. Run container with local storage mounted ```docker run -d -v /tmp/json:/usr/src/app/resources --name=CONTAINER_SHORT_NAME -p 80:3000 REPONAME:CONTAINERNAME```
 # Tooling: #
 ---
 * [Nodejs and npm](https://nodejs.org/en/) version ~4.4.3 LTS. Newer LTS version is acceptable.
