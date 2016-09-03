@@ -1,14 +1,14 @@
 {
   "name": "testserver",
   "version": "1.0.0",
-  "description": "Test server versions",
+  "description": "JSON repsonse server",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Test Server!!\"",
-    "start": "node qa.js"
+    "start": "node server.js"
   },
   "keywords": [
-    "hipchat"
+    "Simulated response server"
   ],
   "author": "ajbond2005@gmail.com",
   "license": "ISC",

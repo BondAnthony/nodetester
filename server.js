@@ -13,11 +13,11 @@ app.use(bodyParser.urlencoded({
 }));
 
 //Pull env port or default to 3001
-var port = process.env.port || 3001
+var port = process.env.port || 3000
 //Get hostname
 var hostname = os.hostname();
 
-var version = require('./routes/version.js')(app);
+var version = require('./routes/reqserver.js')(app);
 
 var server = app.listen(port, function(){
     logger.info('Server running at http://' + hostname + ':' + port + '/');
