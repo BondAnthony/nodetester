@@ -3,6 +3,7 @@
  Simple nodejs service to respond with json. The data coming back from each route is being read out of a predefined property file. Main purpose of this project is to have a simple service respond with expected json for testing.
 
 # Run Tasks #
+---
 Fire up the application by running a number of node/npm commands.
 
 1. Clone project to a directory and open terminal within that directory.
@@ -14,6 +15,7 @@ Fire up the application by running a number of node/npm commands.
 4. Open your browser to the address logged.
 
 # Build Docker Container #
+---
 1. Build a container by running the docker build command, substitute **REPONAME** and **CONTAINERNAME** with a string that is unique to you and your build. My command look like this ```docker build -t spacer:test-nodejs-1.0```
 2. Run container ```docker run --name="CONTAINER_SHORT_NAME" -p 80:3000 -d REPONAME:CONTAINERNAME```. Change the shortname to something user friendly so you don't have to remember the container id.
 
