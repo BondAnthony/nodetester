@@ -10,4 +10,4 @@ Each file will contain straight json. Example
     "status": "online"
 }
 ```
-Currently two different routes have been defined. Additional routes and json files can be added for what ever needs require.
+Currently two different routes have been defined. Additional routes and json files can be added.
