@@ -1,3 +1,6 @@
 {
-    "version": "16.04.02.0009"
+    "endpoint": "spike",
+    "version": "3.34",
+    "status": "online",
+    "url": "http://localhost/api/server1"
 }
