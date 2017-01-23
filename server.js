@@ -21,4 +21,5 @@ var version = require('./routes/reqserver.js')(app);
 
 var server = app.listen(port, function(){
     logger.info('Server running at http://' + hostname + ':' + port + '/');
-})
+});
+module.exports = server;
