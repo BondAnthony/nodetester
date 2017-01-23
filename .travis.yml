@@ -7,10 +7,11 @@ script:
 services:
 - docker
 before_install:
-- docker build -t bondanthony/nodetester
+- docker build -t bondanthony/nodetester .
 - docker run -d --name=nodetester -p 80:3000 bondanthony/nodetester
 - docker ps -a
 after_success:
+- wget http://localhost/api/server1
 - if [ "$TRAVIS_BRANCH" == "master" ]; then docker login -u="$envd" -p="$envh";
   docker push $envd/nodetester; fi
 env:
