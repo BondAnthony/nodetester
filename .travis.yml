@@ -1,19 +1,26 @@
 sudo: required
-language: mode_js
+language: node_js
+
 node_js:
 - node
+
 script:
-- npm test
+- npm run-script test-travis
+
 services:
 - docker
-before_install:
+
+after_script: cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+
+after_success:
 - docker build -t bondanthony/nodetester .
 - docker run -d --name=nodetester -p 80:3000 bondanthony/nodetester
 - docker ps -a
-after_success:
 - wget http://localhost/api/server1
-- if [ "$TRAVIS_BRANCH" == "master" ]; then docker login -u="$envd" -p="$envh";
-  docker push $envd/nodetester; fi
+- if [ "$TRAVIS_BRANCH" == "master" ]; then 
+  docker login -u="$envd" -p="$envh";
+  docker push $envd/nodetester; 
+  fi
 env:
   matrix:
   - secure: gQwievA91Thp95gewyWvYTSycY7W5NT/YyNYMFhDywGo0FpNCaSw5UK/PVL5H/N2C5NaNreaCO4xz2QSARNhTUN8bINhCLghqfo87GybaWINx0zIc3F1Ac7UggUgkrl9R5BOg2xij0DcFGOZJ32QeOrhdjBwwCdDzPYyTN/87A1DpJD/FgmagaIsiFL35qTnouuGQioqLoPo5XxNg+8V6M0Idw7+THbt7wA1xDFRmNo/D30XJXfDb2EMD1PCvoF8JUGB1MBEYtaFEEFXnl4p+NFnlcTd0DtmoSNqJ1vg+42Vuh6AY1fQghiLEGLMn74PGCvDepOtc+uKq0uRqUGCwBQQ3EQrjEtv9eJPiV38Mt6NNjLcEd55iuW2kVCIgZhVxHMAinE3As9psi+BjdCsVpQiFL9SNlP1rpv5RxHga3+hl1hnmaUXin2BZXkHUt6DFLJFu/nBblrOC2OyfkwMPBrl7cUUfgLMxaT/t6kntYpzAvEQEKbTG/grFY8V+fz0xLnnwMueXltt3THx3uIlL1zDMHTiF9XsKYMSkdFBjUKUyPT8wT9phmS6K4WbzKqGkInmtkkrO3echqoY+HE33i1kNjGTdAFb36EiZbD0eM5XndUq0nT/CZtuPuyWxfwudSOEloGf8NEVrS6aVVeg4xYDx62xg9gBzZHkNUyNoNo=

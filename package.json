@@ -5,13 +5,18 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha test",
+    "test-travis": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- -R spec ./test/*",
     "start": "node server.js"
   },
   "keywords": [
     "Simulated response server"
   ],
   "author": "spaceman.software@gmail.com",
-  "license": "ISC",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/BondAnthony/nodetester"
+  },
+  "homepage": "https://github.com/BondAnthony/nodetester#readme",
   "dependencies": {
     "body-parser": "~1.15.2",
     "express": "latest",
@@ -20,7 +25,10 @@
     "mocha": "^3.2.0"
   },
   "devDependencies": {
+    "coveralls": "^2.11.15",
+    "istanbul": "^0.4.5",
     "mocha": "^3.2.0",
+    "mocha-lcov-reporter": "^1.2.0",
     "supertest": "^2.0.1"
   }
 }
