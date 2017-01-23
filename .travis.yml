@@ -1,12 +1,19 @@
 sudo: required
 language: mode_js
 node_js:
-  - node
+- node
 script:
-  - npm test
+- npm test
 services:
-  - docker
-before_install: 
-  - docker build -t bondanthony/nodetester
-  - docker run -d --name=nodetester -p 80:3000 bondanthony/nodetester
-  - docker ps -a
+- docker
+before_install:
+- docker build -t bondanthony/nodetester
+- docker run -d --name=nodetester -p 80:3000 bondanthony/nodetester
+- docker ps -a
+after_success:
+- if [ "$TRAVIS_BRANCH" == "master" ]; then docker login -u="$envd" -p="$envh";
+  docker push $envd/nodetester; fi
+env:
+  matrix:
+  - secure: gQwievA91Thp95gewyWvYTSycY7W5NT/YyNYMFhDywGo0FpNCaSw5UK/PVL5H/N2C5NaNreaCO4xz2QSARNhTUN8bINhCLghqfo87GybaWINx0zIc3F1Ac7UggUgkrl9R5BOg2xij0DcFGOZJ32QeOrhdjBwwCdDzPYyTN/87A1DpJD/FgmagaIsiFL35qTnouuGQioqLoPo5XxNg+8V6M0Idw7+THbt7wA1xDFRmNo/D30XJXfDb2EMD1PCvoF8JUGB1MBEYtaFEEFXnl4p+NFnlcTd0DtmoSNqJ1vg+42Vuh6AY1fQghiLEGLMn74PGCvDepOtc+uKq0uRqUGCwBQQ3EQrjEtv9eJPiV38Mt6NNjLcEd55iuW2kVCIgZhVxHMAinE3As9psi+BjdCsVpQiFL9SNlP1rpv5RxHga3+hl1hnmaUXin2BZXkHUt6DFLJFu/nBblrOC2OyfkwMPBrl7cUUfgLMxaT/t6kntYpzAvEQEKbTG/grFY8V+fz0xLnnwMueXltt3THx3uIlL1zDMHTiF9XsKYMSkdFBjUKUyPT8wT9phmS6K4WbzKqGkInmtkkrO3echqoY+HE33i1kNjGTdAFb36EiZbD0eM5XndUq0nT/CZtuPuyWxfwudSOEloGf8NEVrS6aVVeg4xYDx62xg9gBzZHkNUyNoNo=
+  - secure: M+ikAEmY/xPxb3/zA/YVEqzjG72gM72j8JhoXzAVjPbdu+HT1V7VPTGXmAM+NRQlVxqy3lJPLh/2eGjUdgZoX47jsSnCALA+OwnIHwJNjijvf1Wl5e0FZ+rDgvbXCUwkYgWPCbt/0JLFJKbWeM97MJgw8m4uR+nIt+Q6vIK1oaOPcOfzzDtV8WQQd47et79vSu66S0HOC/7roXa7EVQPhj9eoYSDzcYqzPJ+M3vShguyb5RhJqGSUupbe3WoYtKsgBbNS7oJJ0Qyya8IF70tfgu1tD/ro5vE984ofrhwLfVam1SxZzALm+xvbNpxpSpWSLlSTjf4vA8gf9y25JkCyFUTJhnxuqQ+VOc/mDOicGHIhWGfGtvOBbZpXDB2eg/Qu2AMGQ20vVVY5HosZ7oPSKWtRkvlhvQVY9Hn4eskC+5GVEtsRyAvGQYcE5UdHCjBgRXiDTZNVCdnh6dwAhFIoWy965UPXMVtz4QaQ2kJMtIMKgy0pPO89m0hjYbwO9aEsF7VSBHxyiE8kdnZ8cMqa+kCCvfSMjRWvUshLNWsDPmUNRKB+j/i3g6iYSHsNGmxMZLAOBS2kDgPGh08+Ub3WYFaXxWtHp92+7b134E2gAdEmdC0gh2UnlSqRKar/95MTuLfkvj2mBD1Vgt6SFWBOhoBjgQvauJTlzvVxyQYGDc=
