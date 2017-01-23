@@ -1,27 +1,20 @@
 sudo: required
 language: node_js
-
 node_js:
 - node
-
 script:
 - npm run-script test-travis
-
 services:
 - docker
-
 after_script: cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
-
 after_success:
 - docker build -t bondanthony/nodetester .
 - docker run -d --name=nodetester -p 80:3000 bondanthony/nodetester
 - docker ps -a
-- wget http://localhost/api/server1
-- if [ "$TRAVIS_BRANCH" == "master" ]; then 
-  docker login -u="$envd" -p="$envh";
-  docker push $envd/nodetester; 
-  fi
+- wget http://localhost/api/server1 && wget http://localhost/api/server2 || exit 1
+- if [ "$TRAVIS_BRANCH" == "master" ]; then docker login -u="$DOCKERU" -p="$DOCKERP"; docker
+  push $DOCKERU/nodetester; fi
 env:
-  matrix:
-  - secure: gQwievA91Thp95gewyWvYTSycY7W5NT/YyNYMFhDywGo0FpNCaSw5UK/PVL5H/N2C5NaNreaCO4xz2QSARNhTUN8bINhCLghqfo87GybaWINx0zIc3F1Ac7UggUgkrl9R5BOg2xij0DcFGOZJ32QeOrhdjBwwCdDzPYyTN/87A1DpJD/FgmagaIsiFL35qTnouuGQioqLoPo5XxNg+8V6M0Idw7+THbt7wA1xDFRmNo/D30XJXfDb2EMD1PCvoF8JUGB1MBEYtaFEEFXnl4p+NFnlcTd0DtmoSNqJ1vg+42Vuh6AY1fQghiLEGLMn74PGCvDepOtc+uKq0uRqUGCwBQQ3EQrjEtv9eJPiV38Mt6NNjLcEd55iuW2kVCIgZhVxHMAinE3As9psi+BjdCsVpQiFL9SNlP1rpv5RxHga3+hl1hnmaUXin2BZXkHUt6DFLJFu/nBblrOC2OyfkwMPBrl7cUUfgLMxaT/t6kntYpzAvEQEKbTG/grFY8V+fz0xLnnwMueXltt3THx3uIlL1zDMHTiF9XsKYMSkdFBjUKUyPT8wT9phmS6K4WbzKqGkInmtkkrO3echqoY+HE33i1kNjGTdAFb36EiZbD0eM5XndUq0nT/CZtuPuyWxfwudSOEloGf8NEVrS6aVVeg4xYDx62xg9gBzZHkNUyNoNo=
-  - secure: M+ikAEmY/xPxb3/zA/YVEqzjG72gM72j8JhoXzAVjPbdu+HT1V7VPTGXmAM+NRQlVxqy3lJPLh/2eGjUdgZoX47jsSnCALA+OwnIHwJNjijvf1Wl5e0FZ+rDgvbXCUwkYgWPCbt/0JLFJKbWeM97MJgw8m4uR+nIt+Q6vIK1oaOPcOfzzDtV8WQQd47et79vSu66S0HOC/7roXa7EVQPhj9eoYSDzcYqzPJ+M3vShguyb5RhJqGSUupbe3WoYtKsgBbNS7oJJ0Qyya8IF70tfgu1tD/ro5vE984ofrhwLfVam1SxZzALm+xvbNpxpSpWSLlSTjf4vA8gf9y25JkCyFUTJhnxuqQ+VOc/mDOicGHIhWGfGtvOBbZpXDB2eg/Qu2AMGQ20vVVY5HosZ7oPSKWtRkvlhvQVY9Hn4eskC+5GVEtsRyAvGQYcE5UdHCjBgRXiDTZNVCdnh6dwAhFIoWy965UPXMVtz4QaQ2kJMtIMKgy0pPO89m0hjYbwO9aEsF7VSBHxyiE8kdnZ8cMqa+kCCvfSMjRWvUshLNWsDPmUNRKB+j/i3g6iYSHsNGmxMZLAOBS2kDgPGh08+Ub3WYFaXxWtHp92+7b134E2gAdEmdC0gh2UnlSqRKar/95MTuLfkvj2mBD1Vgt6SFWBOhoBjgQvauJTlzvVxyQYGDc=
+  global:
+  - secure: GoTged3RLE8xq/nKZ89+Rp4W3ZO2BkuT1Quxs9956x/CAfX47J2q/H4xwss0ptsQhyJCbNdmoiCqze/qM+u7b5/QD9utlyDXVY7+XtlaS9sGKpn0BzSYC5P5GUGEE2IcdRFvBX98AJl665/z2tMt5mNBMEb5z25mxlNEXqLOKWguJ0EjWL6Qf8YsDCQYGI2b8X80UQmeXcQnWSt/FtxEils90PxuXEvZDF/eavtA3RqOHJuJHWcG5YIrfhZp9IC/U2Lzw+1m/Kfv6psJHSd1o6YvAkXKsBpeZkti++MrMf3dPuUNE5dLYuZTQR/NrIGDhohbahPw50oWeBxGBKS2RcAyI79JgQ30RVTYYi4ZPA7y4NgplqytyK/B/jCO3V81nG54GeHzmCvtGfIKCLbrZ/Gqgk/09IosYQntkjOzKUvVsa7Krd+EtZugRMiuOxGjQyr2aO9qHvSxfch08UCMlLVVn8MWKpkrMtysDbZnvYlUmr2rQf8CzlpBkpt52YvtcVA9X6m3ggo1jDqDPNI4qPccfhyX8sMfi+m7drHlA3ZTmRRv3VU8nSnvDvOxwcW12v/0EouSISsDQqDptTi7Ll5Vl7L3n62Jo3U86k3mOV1wwwuAMMEMWR4DjEhAM704p7/XA88wsQxzZhHyP6YEPudDvizYfZvuG9/szQn4Q24=
+  - secure: J5nZHup3t9a3dztFFuNPbnpr6y1BYH0oRdjlP2QYwmukuOmlejwnlRtbadPhiarQiea2e9Po3AtVRxH9FqpYD9vjFS5P4IJfvuAw0nfa6d9jgMJk3eMXsWJBciFwYCJ6MsRWK962R2nzuVFhnB0pYgciez9hPLaK2C7roqQWxAq6w5d29+GiEVj9lgyh9Q5/N7DCxeD6Dh4FIw79jn83IMgN1cxtAKKDLtp/nfQ6rjQkHVwOdzC01odd+YZB1qL5gIrJxIj6scmFvCcaYLKD1alXE5XE9i2URZuwmK8uKv4xyyGznqaILdtjgWecpTntON1kCC7DvqjmwflDhY6HlNQf/eTgs44vjpAxNt3MLC8jhonPdtUllno9KMoF4abwqjZogaUQ5UJfD8Kx4+Q6WvNP4HTiqqI85Qhyy+2z4bs2qLTAMF7ipsp8mz98jnGZjg5J4/H52IdlAekiA+3iemWTg2PC9cjscH4CA20xHZlmGgbRynFhmQIcLP+flR999Ejaij29AIo5b94zCUW/2SR8vy/ARdI/t2RHPFNYxkqMBZsDJg1Mkm5CuPWUmsgLt0LNvrSE1NWx/5e3+0yA6ptdivSJwgYv8BAOHwXmEs9aM0tnazgAFoSvCOfkYd3kJqik1HrIl4yC1AcnYf0VLcAjsNFL+F1lYP5VmQjtopE=
