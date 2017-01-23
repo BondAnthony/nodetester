@@ -27,4 +27,13 @@ describe('Testing index response', function () {
             .expect('content-type', 'application/json; charset=utf-8')
             .end(done);
     });
+
+        it('Checking for server2 to respond with json', function (done) {
+
+        request(server)
+            .get('/api/server2')
+            .expect(200)
+            .expect('content-type', 'application/json; charset=utf-8')
+            .end(done);
+    });
 });
