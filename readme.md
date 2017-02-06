@@ -30,7 +30,7 @@ Fire up the application by running a number of node/npm commands.
 ### Tooling:
 ---
 
-* [Nodejs and npm](https://nodejs.org/en/) version ~4.4.3 LTS. Newer LTS version is acceptable.
+* [Nodejs and npm](https://nodejs.org/en/) version ~4.4.3 LTS. Newer LTS version is should work without a problem.
 * Favorite js IDE [VisualCode](https://code.visualstudio.com), [Atom](https://atom.io) or [WebStorm](https://www.jetbrains.com/webstorm/?fromMenu)
 * [git](https://git-scm.com) of course is required.
 * [Docker](https://www.docker.com) if you want to run builds of the Docker container. You can also spin up a VPS with docker already installed at [DigitalOcean](https://m.do.co/c/d5e5957d1fd0)
